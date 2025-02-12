@@ -4,19 +4,25 @@
 #include "../cgltf.h"
 
 #include <stdio.h>
+#include <stddef.h>
+#include <stdint.h>
 
 int main(int argc, char** argv)
 {
+	cgltf_options options;
+	cgltf_data* data;
+	cgltf_result result;
+
 	if (argc < 2)
 	{
 		printf("err\n");
 		return -1;
 	}
 
-	cgltf_options options;
+
 	memset(&options, 0, sizeof(cgltf_options));
-	cgltf_data* data = NULL;
-	cgltf_result result = cgltf_parse_file(&options, argv[1], &data);
+	data = NULL;
+	result = cgltf_parse_file(&options, argv[1], &data);
 
 	if (result == cgltf_result_success)
 		result = cgltf_load_buffers(&options, data, argv[1]);
